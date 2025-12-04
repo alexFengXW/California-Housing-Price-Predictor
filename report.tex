@@ -113,7 +113,7 @@ After training, we evaluated both the linear regression baseline and the neural 
 \section{Implementation}
 
 \subsection{Environment and Libraries}
-All experiments were implemented in Python using open-source libraries. We used \texttt{pandas} and \texttt{NumPy} for data loading and manipulation, and the \texttt{scikit-learn} library~\cite{scikit-learn} for preprocessing, model training, and evaluation. Diagnostic plots were generated with \texttt{matplotlib}. A fixed random seed (\texttt{random\_state = 42}) was set wherever possible so that the train--validation--test split and the optimization procedure of the models could be reproduced across runs.
+All experiments were implemented in Python using open-source libraries. We used \texttt{pandas} and \texttt{NumPy} for data loading and manipulation, and the \texttt{scikit-learn} library~\cite{pedregosa2011} for preprocessing, model training, and evaluation. Diagnostic plots were generated with \texttt{matplotlib}. A fixed random seed (\texttt{random\_state = 42}) was set wherever possible so that the train--validation--test split and the optimization procedure of the models could be reproduced across runs.
 
 \subsection{Data Loading and Cleaning}
 The California Housing Prices dataset was stored locally as a CSV file. We loaded it using \texttt{pandas.read\_csv}, inspected the columns, and removed rows with missing values. The target column \texttt{Median\_House\_Value} was extracted into a vector $y$, and the remaining columns (including \texttt{Median\_Income}, \texttt{Median\_Age}, \texttt{Tot\_Rooms}, \texttt{Tot\_Bedrooms}, \texttt{Population}, \texttt{Households}, \texttt{Latitude}, \texttt{Longitude}, and several distance features) were treated as the feature matrix $X$. Each row therefore corresponds to one census block group, and the task is to predict a real-valued house price.
@@ -220,20 +220,20 @@ For both the linear regression baseline and the neural network, we evaluated per
 \subsection{Quantitative Performance of Each Model}
 
 \subsubsection{Linear Regression (Baseline)}
-The linear regression models provides the starting point for evaluating predictive performance. It works as our baseline. Its training, vailidation and testing MSE/MAE values shows that it does a mediocre job of fitting the overall trend however there are noticable errors, especially at the higher and lower end price ranges. 
+The linear regression model provides the starting point for evaluating predictive performance. It works as our baseline. Its training, validation and testing MSE/MAE values show that it does a mediocre job of fitting the overall trend however there are noticable errors, especially at the higher and lower end price ranges. 
 For the higher priced homes, our models tends to underestimate the cost. 
 
-This model works well as a simple, interpretable baseline. It also matches the ML1 bias-variance theory. Although this model provided results that are good for comparison, they dont quite outperform or reach certain requirements when looking for real predictive performance. 
+This model works well as a simple, interpretable baseline. It also matches the ML1 bias-variance theory. Although this model provided results that are good for comparison, they don't quite outperform or reach certain requirements when looking for real predictive performance. 
 
 
 
 \subsubsection{Neural Network (MLP)}
 Our neural network model demonstrated lower train, validation and test MSE and MAE than the linear regression model. 
-As we can see in figure 2, the predictions align more closely with the true values. This model shows fewer and smaller error across the entire price range as a whole.
+As we can see in figure 2, the predictions align more closely with the true values. This model shows fewer and smaller errors across the entire price range as a whole.
 
 The best-performing neural network used a two-layer architecture with 64 and 32 hidden units.
 This model was able to learn nonlinear patterns that linear regression missed. While its generalization was better which resulted in lower bias and more controlled variance, it was still affected by the dataset's price ceiling which was located at around \$500k. 
-Overall, it demonstrated drastic improvement over our baseline as well as our linear regression model. 
+Overall, it demonstrated a drastic improvement over the linear regression baseline.
 
 
 
@@ -244,7 +244,7 @@ Overall, it demonstrated drastic improvement over our baseline as well as our li
   \begin{itemize}
     \item (32)
     \item (64)
-    \item (32, 64)
+    \item (64, 32)
   \end{itemize}
   \item Evaluated several learning rates (e.g., $10^{-3}$, $5 \times 10^{-4}$)
   \item Trained each configuration with early stopping.
@@ -256,7 +256,7 @@ Overall, it demonstrated drastic improvement over our baseline as well as our li
 
 The hyperparameter search followed the model-selection procedure taught in class. Each model was trained on the training split, evaluated on the validation split and then finally 
 compared using validation MSE. The (64, 32) architecture was the right balance between model complexity and generalization, while smaller architectures lacked capacity and underfit the 
-nonlinear housing patterns. Larger models didn't offer substantial improvement which indicating diminishing returns. Overall, the hyperparameter search demonstrated how systematic tuning 
+nonlinear housing patterns. Larger models didn’t offer substantial improvement, which indicated diminishing returns. Overall, the hyperparameter search demonstrated how systematic tuning 
 of architecture and learning rate can meaningfully improve neural network performance. 
 
 \subsection{Diagnostic Plots}
@@ -272,14 +272,14 @@ and underestimates higher-priced homes. The predictions are saturated toward the
     \label{fig:linear_scatter}
 \end{figure}
 
-The linear regression scatter plot shows clear signs of underfitting. The points do not closely follow the predicted values which shows that the model fails to match the 
-true variation in housing prices. The compression of predicted values towards the middle reflects that the linear model is unable to represent non-linear relationships in the data. 
+The linear regression scatter plot shows clear signs of underfitting. The points do not closely follow the predicted values, showing that the model fails to match the 
+true variation in housing prices. The compression of predicted values towards the center reflects that the linear model is unable to represent nonlinear relationships in the data. 
 This, in turn, leads to large errors for both low-prices and high-priced homes which confirms the limitation of the baseline. 
 
 
 \subsubsection{Neural Network (MLP): True vs. Predicted}
 The values lie much closer to the diagonal line than in the linear regression plot. Errors in this model are smaller and more consistent across the mid-range of prices. Although the model still
-shows some deviation near the dataset's upper price limit, it still captures a wider truer range of the housing values. 
+shows some deviation near the dataset's upper price limit, it still captures a wider, truer range of the housing values. 
 
 \begin{figure}[!ht]
     \centering
@@ -288,33 +288,33 @@ shows some deviation near the dataset's upper price limit, it still captures a w
     \label{fig:mlp_scatter}
 \end{figure}
 
-Neural network scatter plot demonstrated a significant imrpovement in predictive performance. The points are more saturated closer to the diagonal line which shows that the network captures the 
-nonlinear structure of the housing data much more effectively than the linear model. The does lie soem outliers towards the upper-bound of the price distribution, this is partly due to the
-dataset's cap at approximately \$500{,}000, the overall alignment indicates a more accurate and flexible model. The visual differences reinforce the quantitative imrpovement which is observed in the
+Neural network scatter plot demonstrated a significant improvement in predictive performance. The points are more saturated closer to the diagonal line, which shows that the network captures the 
+nonlinear structure of the housing data much more effectively than the linear model. The does lie some outliers towards the upper-bound of the price distribution, this is partly due to the
+dataset's cap at approximately \$500{,}000, the overall alignment indicates a more accurate and flexible model. The visual differences reinforce the quantitative improvement which is observed in the
 neural network's error metrics. 
 
 
 \subsection{Conformal Prediction Results}
-The empirical coverage of the intervals was approximately $0.90$--$0.91$. the average interval width remained moderate and consistent across test samples. 
-The intervals were symmetric around the neural network's point predictions and finally, there was no major over-coverage or under-coverage was observed. 
+The empirical coverage of the intervals was approximately $0.90$--$0.91$. The average interval width remained moderate and consistent across test samples. 
+The intervals were symmetric around the neural network’s point predictions, and no major over-coverage or under-coverage was observed.
 
 
 We applied split-conformal prediction to quantify uncertainty associated with neural network outputs. The prediction layer provided well-calibrated uncertainty estimates for neural network's predictions. 
-By using the residuals from the validation set, the method constructed distribution-free intervals that achieved close to the intended $90\%$ coverage ont he held-out test set. The average interval width was reasonable, menaing
-the model was not overly confident not excessively uncertain. This model aligns with the probabilistic inference concepts that we discussed in class, demonstrating that a predictive system shoudl quantify not only its estimates 
+By using the residuals from the validation set, the method constructed distribution-free intervals that achieved close to the intended $90\%$ coverage on the held-out test set. The average interval width was reasonable, meaning
+the model was not overly confident nor excessively uncertain. This model aligns with the probabilistic inference concepts that we discussed in class, demonstrating that a predictive system should quantify not only its estimates 
 but also the uncertainty surrounding them. The conformal approach successfully adds a reliable uncertainty measure to the neural network without requiring assumptions about the underlying data distribution. 
 
 
 \section{Conclusion}\label{sec:conclusion}
 By comparing linear regression with a neural network and adding conformal prediction, we were able to determine both which model predicts housing prices with higher accuracy and how confident those predictions are.
-When it came to linear regression we learned that it provided a solid baseline but it is too simple for the housing dataset. It underfit and had higher errors. It was unabel to capture nonlinear patterns in the features. 
-THe neural network performs much better, it is able to learn complex relationships such as income + location effects. It also has lower MSE/MAE and predictions much closer to the true values. Conformal predictions produced well-calibrated 90\% intervals.
-Coverage was close to the target  which shows the uncertainty estimates are reliable. Intervals were reasonable narrow which means the model was confident but not overly confident. We have concluded that the best performing pipeline was a combination of neural network
-and conformal prediction. This combinations joins accuracy (neural net) with reliability (conformal intervals). As we learned in class, good AI systems shoudl provide both predictions and uncertainty. 
+When it came to linear regression we learned that it provided a solid baseline but it is too simple for the housing dataset. It underfit and had higher errors. It was unable to capture nonlinear patterns in the features. 
+The neural network performs much better and is able to learn complex relationships such as income + location effects. It also has lower MSE/MAE and predictions much closer to the true values. Conformal predictions produced well-calibrated 90\% intervals.
+Coverage was close to the target, which shows the uncertainty estimates are reliable. Intervals were reasonably narrow which means the model was confident but not overly confident. We have concluded that the best performing pipeline was a combination of neural network
+and conformal prediction. This combination joins accuracy (neural net) with reliability (conformal intervals). As we learned in class, good AI systems should provide both predictions and uncertainty. 
 
-Some limitations that we faced throughout the project would include the upper limit of the data set (around \$500k), this affects prediction accuracy in that region. Neural network still shows some spread at high prices due to this saturation. 
+Some limitations that we faced throughout the project would include the upper limit of the dataset (around \$500k), this affects prediction accuracy in that region. Neural network still shows some spread at high prices due to this saturation. 
 
-Some future extensions could explore deeper or more specialized neural architectures, imrpoved feature engineering, especially geography aware features, and more advances hyperparameter tuning methods. We could also attemp combining other uncertainty estimations such as Bayesian neural networks or mdoel ensembles. 
+Some future extensions could explore deeper or more specialized neural architectures, improved feature engineering, especially geography aware features, and more advances hyperparameter tuning methods. We could also attempt combining other uncertainty estimation methods such as Bayesian neural networks or model ensembles. 
 And finally, using a richer, more extensive dataset may help reduce the saturation effects at the upper price range and support more accurate modeling. 
 
 
