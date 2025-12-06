@@ -301,14 +301,14 @@ The intervals were symmetric around the neural network’s point predictions, an
 
 We applied split-conformal prediction to quantify uncertainty associated with neural network outputs. The prediction layer provided well-calibrated uncertainty estimates for neural network's predictions. 
 By using the residuals from the validation set, the method constructed distribution-free intervals that achieved close to the intended $90\%$ coverage on the held-out test set. The average interval width was reasonable, meaning
-the model was not overly confident nor excessively uncertain. This model aligns with the probabilistic inference concepts that we discussed in class, demonstrating that a predictive system should quantify not only its estimates 
+the model was not overly confident and not excessively uncertain. This model aligns with the probabilistic inference concepts that we discussed in class, demonstrating that a predictive system should quantify not only its estimates 
 but also the uncertainty surrounding them. The conformal approach successfully adds a reliable uncertainty measure to the neural network without requiring assumptions about the underlying data distribution. 
 
 
 \section{Conclusion}\label{sec:conclusion}
 By comparing linear regression with a neural network and adding conformal prediction, we were able to determine both which model predicts housing prices with higher accuracy and how confident those predictions are.
 When it came to linear regression we learned that it provided a solid baseline but it is too simple for the housing dataset. It underfit and had higher errors. It was unable to capture nonlinear patterns in the features. 
-The neural network performs much better and is able to learn complex relationships such as income + location effects. It also has lower MSE/MAE and predictions much closer to the true values. Conformal predictions produced well-calibrated 90\% intervals.
+The neural network performs much better and is able to learn complex relationships effects. It also has lower MSE/MAE and predictions much closer to the true values. Conformal predictions produced well-calibrated 90\% intervals.
 Coverage was close to the target, which shows the uncertainty estimates are reliable. Intervals were reasonably narrow which means the model was confident but not overly confident. We have concluded that the best performing pipeline was a combination of neural network
 and conformal prediction. This combination joins accuracy (neural net) with reliability (conformal intervals). As we learned in class, good AI systems should provide both predictions and uncertainty. 
 
