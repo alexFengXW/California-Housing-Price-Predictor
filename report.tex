@@ -262,7 +262,7 @@ of architecture and learning rate can meaningfully improve neural network perfor
 \subsection{Diagnostic Plots}
 
 \subsubsection{Linear Regression: True vs. Predicted}
-The predicted values are widely scattered around the diagonal line. The model consistently overestimates lower-priced homes
+The predicted values are widely scattered around the diagonal line while being super condensed in the very center. The model consistently overestimates lower-priced homes
 and underestimates higher-priced homes. The predictions are saturated toward the center of the value range. 
 
 \begin{figure}[!ht]
@@ -288,14 +288,13 @@ shows some deviation near the dataset's upper price limit, it still captures a w
     \label{fig:mlp_scatter}
 \end{figure}
 
-Neural network scatter plot demonstrated a significant improvement in predictive performance. The points are more saturated closer to the diagonal line, which shows that the network captures the 
-nonlinear structure of the housing data much more effectively than the linear model. The does lie some outliers towards the upper-bound of the price distribution, this is partly due to the
+The neural network models plot showed a significant improvement in predictive performance. The points are more evenly spread around the diagonal line, showing the effort the model was making trying to capture the nonlinear structure of the housing data, more effectively than the linear model. There does lie some outliers towards the upper-bound of the price distribution, this is partly due to the
 dataset's cap at approximately \$500{,}000, the overall alignment indicates a more accurate and flexible model. The visual differences reinforce the quantitative improvement which is observed in the
 neural network's error metrics. 
 
 
 \subsection{Conformal Prediction Results}
-The empirical coverage of the intervals was approximately $0.90$--$0.91$. The average interval width remained moderate and consistent across test samples. 
+The empirical coverage of the intervals was approximately $0.90$--$0.91$. The average interval width displayed moderately and consistent across the test samples. 
 The intervals were symmetric around the neural network’s point predictions, and no major over-coverage or under-coverage was observed.
 
 
@@ -306,11 +305,11 @@ but also the uncertainty surrounding them. The conformal approach successfully a
 
 
 \section{Conclusion}\label{sec:conclusion}
-By comparing linear regression with a neural network and adding conformal prediction, we were able to determine both which model predicts housing prices with higher accuracy and how confident those predictions are.
-When it came to linear regression we learned that it provided a solid baseline but it is too simple for the housing dataset. It underfit and had higher errors. It was unable to capture nonlinear patterns in the features. 
-The neural network performs much better and is able to learn complex relationships effects. It also has lower MSE/MAE and predictions much closer to the true values. Conformal predictions produced well-calibrated 90\% intervals.
-Coverage was close to the target, which shows the uncertainty estimates are reliable. Intervals were reasonably narrow which means the model was confident but not overly confident. We have concluded that the best performing pipeline was a combination of neural network
-and conformal prediction. This combination joins accuracy (neural net) with reliability (conformal intervals). As we learned in class, good AI systems should provide both predictions and uncertainty. 
+Comparing linear regression and neural networks and adding conformal prediction, we were able to determine which model predicts the housing prices better with higher accuracy and how confident each model is.
+With linear regression, it provided a solid baseline but the algorithm was too simple for the housing datasets complexity. It underfit and had more significant errors which were unable to capture the nonlinear patterns in the housing features. 
+With neural network, the performance was better and the model had an easier time learning the complex relationships and their effects. It resulted with lower MSE/MAE and the predictions were much closer to the true values. 
+As for the conformal predictions, they produced well calibrated intervals at 90\%, the coverage was close to the target, this shows the uncertainty estimates are reliable. The intervals were reasonably tight which means the model was confident 
+but not overly confident. The better performing pipeline was a combination of the neural network model and conformal prediction. This combination joins accuracy from the model itself and the reliability coming from the conformal intervals. 
 
 Some limitations that we faced throughout the project would include the upper limit of the dataset (around \$500k), this affects prediction accuracy in that region. Neural network still shows some spread at high prices due to this saturation. 
 

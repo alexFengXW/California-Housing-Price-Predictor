@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1765059178.43956 "/Users/annabelirani/Desktop/CS3346AI/3346/report.tex" "report.pdf" "report" 1765059180.72697 0
-  "/Users/annabelirani/Desktop/CS3346AI/3346/report.tex" 1765059177.51894 27115 6e53956abe844b30b687c5403baf9811 ""
+["pdflatex"] 1765060832.53362 "/Users/annabelirani/Desktop/CS3346AI/3346/report.tex" "report.pdf" "report" 1765060834.22469 0
+  "/Users/annabelirani/Desktop/CS3346AI/3346/report.tex" 1765060832.20068 27211 87b9a8ae7d4bc9660918fe36b9547c88 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -154,8 +154,8 @@
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "linear_test_scatter.png" 1764286200.07086 420433 21d1bb4f9f9c08d840196bcd70e7373a ""
   "mlp_test_scatter.png" 1764286200.07477 488501 64c53ef9ae7881a1d5809b3218e74b32 ""
-  "report.aux" 1765059180.57989 5403 aa87f565b7be3ca2413a63096d7d160f "pdflatex"
-  "report.tex" 1765059177.51894 27115 6e53956abe844b30b687c5403baf9811 ""
+  "report.aux" 1765060834.11054 5403 566e01d66ff2c209b1214bff55dd7686 "pdflatex"
+  "report.tex" 1765060832.20068 27211 87b9a8ae7d4bc9660918fe36b9547c88 ""
   (generated)
   "report.aux"
   "report.log"
