@@ -82,8 +82,8 @@ The remainder of this paper is organized as follows: Section~\ref{sec:methodolog
 \section{Methodology}\label{sec:methodology}
 
 \subsection{Dataset}
-We used the publicly available \emph{California Housing Prices} dataset from Kaggle~\cite{californiaKaggle}. 
-Each instance corresponds to a California district and includes socioeconomic and geographic attributes such as 
+We used the dataset from Kaggle \emph{California Housing Prices}~\cite{californiaKaggle}. 
+Each row in the dataset corresponds to a California district and it includes many attributes relating to that district including 
 median income, housing median age, total rooms, total bedrooms, population, households, and geographic location 
 (latitude and longitude). The target variable is \emph{median\_house\_value}, which we aim to predict. After loading 
 the dataset, we removed rows with missing or clearly invalid entries to ensure that the downstream models were 
@@ -91,23 +91,24 @@ trained on clean data. Features (inputs) and the target (output) were then separ
 respectively.
 
 \subsection{Feature Standardization}
-Most input attributes are continuous and measured on different scales (e.g., income vs.\ longitude). To prevent features with large numeric ranges from dominating the learning process, we standardized all continuous features using the z-score transformation:
+Most input attributes are continuous and measured on different scales (e.g., income vs.\ longitude). To prevent using features with large values from dominating the learning process, we standardized all continuous features using the z-score transformation:
 \begin{equation}
     x^{\prime} = \frac{x - \mu}{\sigma},
 \end{equation}
-where \(\mu\) and \(\sigma\) are the sample mean and standard deviation computed from the training data. The same statistics were applied to the validation and test splits to avoid data leakage. Standardization is especially important for gradient-based models, as it improves numerical stability and ensures comparable learning rates across features.
+where \(\mu\) and \(\sigma\) are the sample mean and standard deviation computed from the training data. We used the same mean and standard deviation to standardize the validation and test sets. This means that no information from those sets leaked into the training process. Standardizing the features is important because it makes the optimization more stable and allows the model to update all features on a similar scale, especially for models trained with gradient descent.
+
 
 \subsection{Train--Validation--Test Split}
-To assess generalization fairly, we randomly partitioned the dataset into three disjoint subsets: \(70\%\) for training, \(15\%\) for validation, and \(15\%\) for testing. A fixed random seed was used so that the split is reproducible. The training set was used to fit model parameters, while the validation set monitored performance and guided hyperparameter selection (e.g., number of hidden layers, neurons, learning rate). The test set was held out for final reporting to provide an unbiased estimate of model performance.
+To fairly assess generalization, we randomly partition the data set into three disjoint subsets: \(70\%\) for training, \(15\%\) for validation, and \(15\%\) for testing. A fixed random seed was used so that the split is reproducible. The training set was used to fit model parameters, and the validation set was used specifically to monitor the performance and guided hyperparameter selection (e.g., number of hidden layers, neurons, and learning rate). The test set was the dataset used only to test the final trained model with the best hyperparameter selection.
 
 \subsection{Baseline: Linear Regression}
-As a first model, we trained an ordinary least squares linear regressor on the standardized features to predict \emph{median\_house\_value}. This baseline captures only linear relationships between the housing attributes and the target, and it serves as a reference point for determining whether more expressive models provide meaningful improvements.
+As a first model, we trained a simple linear regression model on standardized features to predict \emph{the median\_house\_value}. Since the baseline is a linear model, it only captures the linear relationships between the features and the target, and it serves as a baseline to determine whether more expressive models provide meaningful improvements.
 
 \subsection{Neural Network Regressor}
-Our main model was a feedforward neural network for regression. The network took the standardized feature vector as input, passed it through one or more fully connected hidden layers with ReLU activations, and produced a single scalar output representing the predicted house value. The network was trained using mean squared error (MSE) loss and optimized with the Adam optimizer~\cite{kingma2015adam}. Training was conducted on the \(70\%\) training split, while the \(15\%\) validation split was used for early stopping and hyperparameter tuning. All models were implemented in Python using the Scikit-learn library~\cite{pedregosa2011}.
+Our main model was a neural network for regression. The network took the standardized features as a vector to serve as the input for the network. Then it was passed through the defined hidden layers with ReLU activations and produced a single scalar output representing the predicted house value. The network was trained using mean squared error (MSE) loss and optimized with the Adam optimizer~\cite{kingma2015adam}. Training was completed on the \(70\%\) training split, while the \(15\%\) validation split was used for early stopping and hyperparameter tuning. All models were implemented and completed in Python using the Scikit-learn library~\cite{pedregosa2011}.
 
 \subsection{Evaluation}
-After training, we evaluated both the linear regression baseline and the neural network on the held-out \(15\%\) test set. We reported standard regression metrics such as mean squared error (MSE) and mean absolute error (MAE) to determine whether the nonlinear neural network provided a meaningful improvement over the linear baseline. These metrics allow us to compare not only overall accuracy but also robustness to large errors.
+After training, we evaluated both the linear regression baseline and the neural network on the defined \(15\%\) test set. We reported regression metrics such as mean squared error (MSE) and mean absolute error (MAE) to determine if the nonlinear neural network is indeed an improvement over the linear baseline. These metrics allow us to compare not only overall accuracy but also robustness to large errors.
 
 % -------------------------------------------------------------
 \section{Implementation}
